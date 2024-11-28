@@ -152,7 +152,7 @@ rule "global init":
 	createBeam(localPlayer if localPlayer.menuState >= MENU.SHOP else [], Beam.GRAPPLE, ScreenPos(-2.5, 0.6, "menuCam", "menuLook", 2), ScreenPos(2.5, 0.6, "menuCam", "menuLook", 2), Color.WHITE, EffectReeval.VISIBILITY)
 	createBeam(localPlayer if localPlayer.menuState >= MENU.SHOP else [], Beam.GRAPPLE, ScreenPos(-2.5, -0.6, "menuCam", "menuLook", 2), ScreenPos(2.5, -0.6, "menuCam", "menuLook", 2), Color.WHITE, EffectReeval.VISIBILITY)
 
-	### cosmetic menu
+	### cosmetic menu headers
 	createInWorldText(localPlayer if localPlayer.menuState == MENU.SKINS else [], "buy skins", ScreenPos(0, 1.1, "menuCam", "menuLook", 100), 6, Clip.NONE, WorldTextReeval.VISIBILITY_AND_COLOR, Color.ROSE, SpecVisibility.DEFAULT)
 	createInWorldText(localPlayer if localPlayer.menuState == MENU.PANTS else [], "buy pants", ScreenPos(0, 1.1, "menuCam", "menuLook", 100), 6, Clip.NONE, WorldTextReeval.VISIBILITY_AND_COLOR, Color.ROSE, SpecVisibility.DEFAULT)
 	createInWorldText(localPlayer if localPlayer.menuState == MENU.HEROES else [], "buy blorbos", ScreenPos(0, 1.1, "menuCam", "menuLook", 100), 6, Clip.NONE, WorldTextReeval.VISIBILITY_AND_COLOR, Color.ROSE, SpecVisibility.DEFAULT)
@@ -171,19 +171,25 @@ rule "global init":
 		createInWorldText(localPlayer if localPlayer.menuState == MENU.HEROES else [], "selected" if evalOnce(i) == localPlayer.hero else "owned" if evalOnce(i) in localPlayer.heroesOwned else evalOnce("B{}".format(pantPrices[i])), ScreenPos("(-2 + 5/menuMaxes[MENU.HEROES] * i)", -0.5, "menuCam", "menuLook", 100), 2, Clip.NONE, WorldTextReeval.VISIBILITY_AND_STRING, Color.WHITE, SpecVisibility.DEFAULT)
 
 	### selector
-	# L
-	createBeam(localPlayer if localPlayer.menuState >= MENU.SHOP else [], Beam.GOOD, ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * localPlayer.visopt)", 0.6, "menuCam", "menuLook", 1.9), ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * localPlayer.visopt)", -0.6, "menuCam", "menuLook", 1), Color.TEAM_1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	# L, dir reverse
+	createBeam(localPlayer if localPlayer.menuState >= MENU.SHOP else [], Beam.BAD, ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * localPlayer.visopt)", -0.6, "menuCam", "menuLook", 1), ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * localPlayer.visopt)", 0.6, "menuCam", "menuLook", 1.9), Color.TEAM_1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
 	# R
-	createBeam(localPlayer if localPlayer.menuState >= MENU.SHOP else [], Beam.GOOD, ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt + 1))", 0.6, "menuCam", "menuLook", 1.9), ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt + 1))", -0.6, "menuCam", "menuLook", 1), Color.TEAM_1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createBeam(localPlayer if localPlayer.menuState >= MENU.SHOP else [], Beam.BAD, ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt + 1))", 0.6, "menuCam", "menuLook", 1.9), ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt + 1))", -0.6, "menuCam", "menuLook", 1), Color.TEAM_1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
 	# T
-	createBeam(localPlayer if localPlayer.menuState >= MENU.SHOP else [], Beam.GOOD, ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt))", 0.6, "menuCam", "menuLook", 1.9), ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt + 1))", 0.6, "menuCam", "menuLook", 1), Color.TEAM_1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-	# B
-	createBeam(localPlayer if localPlayer.menuState >= MENU.SHOP else [], Beam.GOOD, ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt))", -0.6, "menuCam", "menuLook", 1.9), ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt + 1))", -0.6, "menuCam", "menuLook", 1), Color.TEAM_1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createBeam(localPlayer if localPlayer.menuState >= MENU.SHOP else [], Beam.BAD, ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt))", 0.6, "menuCam", "menuLook", 1.9), ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt + 1))", 0.6, "menuCam", "menuLook", 1), Color.TEAM_1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	# B, dir reverse
+	createBeam(localPlayer if localPlayer.menuState >= MENU.SHOP else [], Beam.BAD, ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt + 1))", -0.6, "menuCam", "menuLook", 1), ScreenPos("(-2.5 + 5/menuMaxes[localPlayer.menuState] * (localPlayer.visopt))", -0.6, "menuCam", "menuLook", 1.9), Color.TEAM_1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
 
 	# YOU LOSE!
-	createInWorldText(localPlayer if localPlayer.menuState == MENU.LOSE else [], "you lose", ScreenPos(0, 1.1, "menuCam", "menuLook", 100), 6, Clip.NONE, WorldTextReeval.VISIBILITY_AND_COLOR, Color.GRAY, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.LOSE else [], "watch ad to\nretry with bbl", ScreenPos(-2, 0, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, iknowwhatyouare, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.LOSE else [], "you lose...", ScreenPos(0, 1.1, "menuCam", "menuLook", 100), 6, Clip.NONE, WorldTextReeval.VISIBILITY_AND_COLOR, Color.GRAY, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.LOSE else [], "return to menu", ScreenPos(-2+5, 0, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
 
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.WIN else [], "level complete!", ScreenPos(0, 1.1, "menuCam", "menuLook", 100), 6, Clip.NONE, WorldTextReeval.VISIBILITY_AND_COLOR, Color.GRAY, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.WIN else [], "reward: 100 credits {}".format(iconString(Icon.TRASHCAN)), ScreenPos(0, 0, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, iknowwhatyouare, SpecVisibility.DEFAULT)
 
+	hudHeader(localPlayer if localPlayer.state == STATE.AD else [], "{} skip ad".format(localPlayer.adTimer), ScreenPos(0, -1.2, "menuCam", "menuLook", 100), 0, Color.GRAY, HudReeval.VISIBILITY_AND_STRING)
+	# createInWorldText(localPlayer if localPlayer.state == STATE.AD else [], "{} skip ad".format(localPlayer.adTimer), ScreenPos(0, -1.2, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, Color.GRAY, SpecVisibility.DEFAULT)
 rule "global init - skin effects":
 	wait(1.8)
 	### skins
@@ -193,16 +199,16 @@ rule "global init - skin effects":
 	createEffect(localPlayer if ((localPlayer.skin == 4 and localPlayer.menuState != MENU.SKINS) or (localPlayer.menuState == MENU.SKINS and localPlayer.option == 4)) else [], Effect.ECHO_CLONING, Color.TEAM_1, localPlayer, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
 
 	# pants
-	createEffect(localPlayer if ((localPlayer.skin == 0 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 0)) else [], Effect.BAPTISTE_IMMORTALITY_FIELD_PROTECTED, Color.TEAM_1, localPlayer.lcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-	createEffect(localPlayer if ((localPlayer.skin == 0 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 0)) else [], Effect.BAPTISTE_IMMORTALITY_FIELD_PROTECTED, Color.TEAM_1, localPlayer.rcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-	createEffect(localPlayer if ((localPlayer.skin == 1 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 1)) else [], Effect.ANA_NANO_BOOSTED, Color.TEAM_1, localPlayer.lcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-	createEffect(localPlayer if ((localPlayer.skin == 1 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 1)) else [], Effect.ANA_NANO_BOOSTED, Color.TEAM_1, localPlayer.rcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-	createEffect(localPlayer if ((localPlayer.skin == 2 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 2)) else [], Effect.REAPER_WRAITH_FORM, Color.TEAM_1, localPlayer.lcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-	createEffect(localPlayer if ((localPlayer.skin == 2 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 2)) else [], Effect.REAPER_WRAITH_FORM, Color.TEAM_1, localPlayer.rcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-	createEffect(localPlayer if ((localPlayer.skin == 3 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 3)) else [], Effect.ECHO_CLONING, Color.TEAM_1, localPlayer.lcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-	createEffect(localPlayer if ((localPlayer.skin == 3 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 3)) else [], Effect.ECHO_CLONING, Color.TEAM_1, localPlayer.rcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-	createEffect(localPlayer if ((localPlayer.skin == 4 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 4)) else [], Effect.WRECKING_BALL_PILEDRIVER_FIRE, Color.TEAM_1, localPlayer.lcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-	createEffect(localPlayer if ((localPlayer.skin == 4 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 4)) else [], Effect.WRECKING_BALL_PILEDRIVER_FIRE, Color.TEAM_1, localPlayer.rcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createEffect(localPlayer if ((localPlayer.pants == 0 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 0)) else [], Effect.BAPTISTE_IMMORTALITY_FIELD_PROTECTED, Color.TEAM_1, localPlayer.lcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createEffect(localPlayer if ((localPlayer.pants == 0 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 0)) else [], Effect.BAPTISTE_IMMORTALITY_FIELD_PROTECTED, Color.TEAM_1, localPlayer.rcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createEffect(localPlayer if ((localPlayer.pants == 1 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 1)) else [], Effect.ANA_NANO_BOOSTED, Color.TEAM_1, localPlayer.lcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createEffect(localPlayer if ((localPlayer.pants == 1 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 1)) else [], Effect.ANA_NANO_BOOSTED, Color.TEAM_1, localPlayer.rcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createEffect(localPlayer if ((localPlayer.pants == 2 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 2)) else [], Effect.REAPER_WRAITH_FORM, Color.TEAM_1, localPlayer.lcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createEffect(localPlayer if ((localPlayer.pants == 2 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 2)) else [], Effect.REAPER_WRAITH_FORM, Color.TEAM_1, localPlayer.rcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createEffect(localPlayer if ((localPlayer.pants == 3 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 4)) else [], Effect.ECHO_CLONING, Color.TEAM_1, localPlayer.lcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createEffect(localPlayer if ((localPlayer.pants == 3 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 4)) else [], Effect.ECHO_CLONING, Color.TEAM_1, localPlayer.rcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createEffect(localPlayer if ((localPlayer.pants == 4 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 3)) else [], Effect.WRECKING_BALL_PILEDRIVER_FIRE, Color.TEAM_1, localPlayer.lcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+	createEffect(localPlayer if ((localPlayer.pants == 4 and localPlayer.menuState != MENU.PANTS) or (localPlayer.menuState == MENU.PANTS and localPlayer.option == 3)) else [], Effect.WRECKING_BALL_PILEDRIVER_FIRE, Color.TEAM_1, localPlayer.rcheek, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
 
 rule "global init - currency, main PRODUCT menu":
 	wait(0.96)
@@ -215,14 +221,14 @@ rule "global init - currency, main PRODUCT menu":
 		wait()
 	createBeam(localPlayer if localPlayer.menuState == MENU.SHOP else [], Beam.GRAPPLE, ScreenPos("(-2.5 + 5)", 0.6, "menuCam", "menuLook", 2), ScreenPos("(-2.5 + 5)", -0.6, "menuCam", "menuLook", 2), Color.WHITE, EffectReeval.VISIBILITY)
 
-	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], "buy skins", ScreenPos(-2, 0.2, "menuCam", "menuLook", 100), 2.3, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
-	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], iconString(Icon.DIZZY), ScreenPos(-2, 0, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, Color.SKY_BLUE, SpecVisibility.DEFAULT)
-	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], "buy pants", ScreenPos("(-2 + 5/menuMaxes[MENU.SHOP])", 0.2, "menuCam", "menuLook", 100), 2.3, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
-	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], abilityIconString(Hero.HAMMOND, Button.ABILITY_1), ScreenPos("(-2 + 5/menuMaxes[MENU.SHOP])", 0, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, Color.SKY_BLUE, SpecVisibility.DEFAULT)
-	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], "buy blorbos", ScreenPos("(-2 + 5/menuMaxes[MENU.SHOP] * 2)", 0.2, "menuCam", "menuLook", 100), 2.3, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
-	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], heroIcon(Hero.ORISA), ScreenPos("(-2 + 5/menuMaxes[MENU.SHOP] * 2)", 0, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, Color.SKY_BLUE, SpecVisibility.DEFAULT)
-	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], "buy currency", ScreenPos("(-2 + 5/menuMaxes[MENU.SHOP] * 3)", 0.2, "menuCam", "menuLook", 100), 2.3, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
-	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], "€{}B".format(abilityIconString(Hero.ORISA, Button.ABILITY_1)), ScreenPos("(-2 + 5/menuMaxes[MENU.SHOP] * 3)", 0, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], "buy skins", ScreenPos("(-2.5 + 5/menuMaxes[MENU.SHOP] * 0.5)", 0.2, "menuCam", "menuLook", 100), 2.3, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], iconString(Icon.DIZZY), ScreenPos("(-2.5 + 5/menuMaxes[MENU.SHOP] * 0.5)", -0.1, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, Color.SKY_BLUE, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], "buy pants", ScreenPos("(-2.5 + 5/menuMaxes[MENU.SHOP] * 1.5)", 0.2, "menuCam", "menuLook", 100), 2.3, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], abilityIconString(Hero.HAMMOND, Button.ABILITY_1), ScreenPos("(-2.5 + 5/menuMaxes[MENU.SHOP] * 1.5)", -0.1, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, Color.SKY_BLUE, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], "buy blorbos", ScreenPos("(-2.5 + 5/menuMaxes[MENU.SHOP] * 2.5)", 0.2, "menuCam", "menuLook", 100), 2.3, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], heroIcon(Hero.ORISA), ScreenPos("(-2.5 + 5/menuMaxes[MENU.SHOP] * 2.5)", -0.1, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, Color.SKY_BLUE, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], "buy currency", ScreenPos("(-2.5 + 5/menuMaxes[MENU.SHOP] * 3.5)", 0.2, "menuCam", "menuLook", 100), 2.3, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
+	createInWorldText(localPlayer if localPlayer.menuState == MENU.SHOP else [], "€{}B".format(abilityIconString(Hero.ORISA, Button.ABILITY_1)), ScreenPos("(-2.5 + 5/menuMaxes[MENU.SHOP] * 3.5)", -0.1, "menuCam", "menuLook", 100), 4, Clip.NONE, WorldTextReeval.VISIBILITY, Color.WHITE, SpecVisibility.DEFAULT)
 
 	# currency
 	createInWorldText(localPlayer if localPlayer.menuState == MENU.CURRENCY else [], "buy currency", ScreenPos(0, 1.1, "menuCam", "menuLook", 100), 6, Clip.NONE, WorldTextReeval.VISIBILITY_AND_COLOR, iknowwhatyouare, SpecVisibility.DEFAULT)
@@ -318,7 +324,7 @@ rule "level init":
 	@Condition not eventPlayer.isDummy()
 	eventPlayer.menuState = MENU.OFF
 	eventPlayer.teleport(RoadStart)
-	# eventPlayer.startFacing(RoadDir, 9999, Relativity.TO_WORLD, FacingReeval.NONE)
+	eventPlayer.startFacing(RoadDir, 9999, Relativity.TO_WORLD, FacingReeval.NONE)
 	eventPlayer.asssize = 1
 	eventPlayer.next = RoadStart + 30 * RoadDir
 	eventPlayer.stopForcingThrottle()
@@ -348,10 +354,11 @@ rule "level init":
 		eventPlayer.next += 10 * RoadDir
 		wait(0.048)
 
-	eventPlayer.next -= 10 * RoadDir
+	eventPlayer.next -= 20 * RoadDir
 	wait(0.24)
 	getAllPlayers().startForcingOutlineFor(getAllPlayers(), false, Color.WHITE, OutlineVisibility.DEFAULT)
 	getAllPlayers().disableNameplatesFor(getAllPlayers())
+	eventPlayer.startForcingThrottle(1,0,0,0,0,1)
 
 rule "level cleanup":
 	@Event eachPlayer
@@ -489,10 +496,11 @@ rule "assnimal kaiser":
 		eventPlayer.menuState = MENU.WIN
 	else:
 		damage(eventPlayer, eventPlayer.opp, 999999)
+		wait(2)
+		eventPlayer.resurrect()
 		eventPlayer.menuState = MENU.LOSE
-
-	eventPlayer.stopCamera()
-	eventPlayer.is3p = false
+	# eventPlayer.stopCamera()
+	# eventPlayer.is3p = false
 
 rule "i shake it i shake it i shake it ooh":
 	@Event eachPlayer
@@ -540,6 +548,7 @@ rule "select":
 	@Condition eventPlayer.isHoldingButton(Button.JUMP)
 	@Condition eventPlayer.menuState != MENU.OFF
 	playEffect(eventPlayer, DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 50)
+	# playEffect(eventPlayer, DynamicEffect.GOOD_PICKUP_EFFECT, Color.ROSE, menuCam, 1)
 	switch eventPlayer.menuState:
 		case MENU.MAIN:
 			if eventPlayer.option == 0:
@@ -619,6 +628,19 @@ rule "select":
 					smallMessage(eventPlayer, "insufficient funds.")
 					eventPlayer.menuState = MENU.BUYBLORBO
 			break
+		case MENU.LOSE:
+			if eventPlayer.option == 0:
+				eventPlayer.menuState = MENU.OFF
+				eventPlayer.state = STATE.AD
+			elif eventPlayer.option == 1:
+				eventPlayer.menuState = MENU.MAIN
+			break
+		case MENU.WIN:
+			eventPlayer.credits += 100
+			eventPlayer.menuState = MENU.OFF
+	# eventPlayer.option = 0
+	wait()
+	eventPlayer.option = min(eventPlayer.option, menuMaxes[eventPlayer.menuState])
 
 rule "menu scroll up":
 	@Event eachPlayer

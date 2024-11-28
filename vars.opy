@@ -11,6 +11,7 @@ playervar i
 playervar bots
 playervar next
 playervar opp # for dummies, is owner id
+playervar adTimer
 
 playervar credits
 playervar owcoins
